@@ -14,7 +14,7 @@ public class Main {
         // While loop for showing the menu until user not want to exit
         while(!exit) {
         System.out.println("\nEnter 1. Add new Contact \nEnter 2. Edit Contact " +
-                "\nEnter 3. Show Contacts \nEnter 4. Exit");
+                "\nEnter 3. Show Contacts \nEnter 4. Delete Contact \nEnter 5. Exit");
         int num = sc.nextInt();
 
         // writing the switch case
@@ -32,6 +32,10 @@ public class Main {
                     break;
 
                 case 4:
+                    addressBook.deleteContact();
+                    break;
+
+                case 5:
                     System.out.println("Exit !");
                     exit = true;
                     break;
