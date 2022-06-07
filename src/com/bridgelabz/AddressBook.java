@@ -1,29 +1,31 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddressBook {
 
     ArrayList<Contacts> contactsArrayList = new ArrayList<>();
+    private HashMap<String, ArrayList<Contacts>> addressBookSystem = new HashMap<>();
     Scanner sc = new Scanner(System.in);
 
-    public void addContact(Contacts contacts) {
-        contactsArrayList.add(contacts);
-    }
     // Method to add new contact
     public void addNewContacts() {
 
         AddressBook addressBook = new AddressBook();
         Contacts contacts = new Contacts();
+
         System.out.println("\nFor adding a new contact enter the following detail");
 
+        // Set the value of contacts detail
         System.out.println("\nEnter First Name ");
         contacts.setFirstName(sc.next());
         System.out.println("Enter Last Name ");
         contacts.setLastName(sc.next());
         System.out.println("Enter Address ");
-        contacts.setAddress(sc.next());
+        sc.nextLine();
+        contacts.setAddress(sc.nextLine());
         System.out.println("Enter Email Id ");
         contacts.setEmailId(sc.next());
         System.out.println("Enter City ");
@@ -33,11 +35,28 @@ public class AddressBook {
         System.out.println("Enter Zip Code ");
         contacts.setZipCode(sc.nextInt());
         System.out.println("Enter Phone No. ");
-        contacts.setPhoneNo(sc.nextInt());
+        contacts.setPhoneNo(sc.nextLong());
 
         // Stored the information in contactsArrayList
         contactsArrayList.add(contacts);
-        System.out.println("\nContact added successfully !");
+
+        System.out.println("Enter book name");
+        sc.nextLine();
+        String bookName = sc.nextLine();
+
+        // Checking the condition the book is existed or not
+        if(addressBookSystem.containsKey(bookName)) {
+            ArrayList<Contacts> contactList = addressBookSystem.get(bookName);
+            addressBookSystem.put(bookName,contactList);
+            System.out.println("Contact added successfully exiting book");
+        }
+
+        else {
+            ArrayList<Contacts> contactsArrayList1 = addressBookSystem.get(bookName);
+            addressBookSystem.put(bookName, contactsArrayList1);
+            System.out.println(bookName + " Created successfully");
+            System.out.println("New contact add to the " + bookName);
+        }
     }
 
     // Method for Edit the information of Contact
@@ -51,7 +70,6 @@ public class AddressBook {
 
                 if (contactsArrayList.get(i).getFirstName().equals(checkFirstName)) {
 
-                    System.out.println("\nContact founded !");
                     System.out.println("\nWhat you want to update");
                     System.out.println("\nEnter 1. First Name \nEnter 2. Last Name \nEnter 3.Address " +
                             "\nEnter 4. Email id " + "\nEnter 5. City" +
